@@ -28,6 +28,6 @@ runclass:
   stage: execute
   script: 
     - echo -n "isPHV=" > flags.properties
-    - cat /builds/janhkrueger/tutorial-featureflag-for-java.tmp/isPHV >> flags.properties
+    - cat /builds/janhkrueger/TutorialFeatureFlagforJava.tmp/isPHV >> flags.properties
     - cat flags.properties
     - mvn exec:java -Dexec.mainClass=de.jan.TutorialFeatureflagForJava
