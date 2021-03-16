@@ -1,0 +1,33 @@
+image: maven:3.6.3-jdk-8
+
+# set variables
+variables:
+  main_folder: "src/main/java/"
+  package: "de/jan"
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+stages:
+  - build
+  - execute
+
+cache:
+  paths:
+    - target/
+    - .m2/repository/
+
+compile:
+  stage: build
+  script:
+    - mvn install
+  artifacts:
+    paths:
+      -  App.*
+
+
+runclass:
+  stage: execute
+  script: 
+    - echo -n "isPHV=" > flags.properties
+    - cat /builds/janhkrueger/tutorial-featureflag-for-java.tmp/isPHV >> flags.properties
+    - cat flags.properties
+    - mvn exec:java -Dexec.mainClass=de.jan.TutorialFeatureflagForJava
